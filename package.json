@@ -6,7 +6,9 @@
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "clean": "turbo clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "web": "pnpm --filter web",
+    "api": "pnpm --filter api"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
