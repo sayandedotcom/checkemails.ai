@@ -8,7 +8,10 @@ import {
 export const classifyEmail = async (body: string) => {
   const SECRECT_KEY = process.env.OPEN_API_SECRECT_KEY;
 
-  const chat = new ChatOpenAI({ openAIApiKey: SECRECT_KEY });
+  const chat = new ChatOpenAI({
+    openAIApiKey: SECRECT_KEY,
+    model: "gpt-3.5-turbo",
+  });
 
   const systemMessagePrompt = SystemMessagePromptTemplate.fromTemplate(
     "Classify the following email into one of these categories: spam, important, or marketing in one word only."

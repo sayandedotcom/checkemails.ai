@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { classifyEmail } from "@repo/ai";
 import { z } from "zod";
 import {
   Button,
@@ -16,8 +17,8 @@ import {
 } from "@repo/ui";
 
 const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  openApiKey: z.string().min(1, {
+    message: "Please enter your key !.",
   }),
 });
 
@@ -25,12 +26,14 @@ export function InputForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      openApiKey: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+
+    console.log(classifyEmail(data.openApiKey));
 
     // toast({
     //   title: "You submitted the following values:",
@@ -40,23 +43,24 @@ export function InputForm() {
     //     </pre>
     //   ),
     // });
+    form.reset();
   }
 
   return (
     <Form {...form}>
-      <form className="w-2/3 space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="w-2/3" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="username"
+          name="openApiKey"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Enter your Open API key here" {...field} />
               </FormControl>
-              <FormDescription>
+              {/* <FormDescription>
                 This is your public display name.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
